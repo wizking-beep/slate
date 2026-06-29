@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slate Design System & Theme Guidelines</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CSS Variables matching colors.tsx */
+    :root {
+      --background: #F4F5FA;
+      --card: #FFFFFF;
+      --surface: #EBE8F4;
+      --border: #E0DBEC;
+      --text: #1C1A22;
+      --text-secondary: #494554;
+      --text-muted: #8F899D;
+      --primary: #7A4FD6;
+      --on-primary: #FFFFFF;
+      --primary-container: #E9DDFF;
+      --on-primary-container: #22005C;
+      --success: #2E7D32;
+      --error: #BA1A1A;
+      --warning: #B25E00;
+      
+      --shadow-sm: 0 2px 8px rgba(28, 26, 34, 0.04);
+      --shadow-md: 0 8px 24px rgba(28, 26, 34, 0.06);
+      --shadow-lg: 0 16px 40px rgba(28, 26, 34, 0.1);
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      
+      --transition-speed: 0.3s;
+    }
+
+    [data-theme="dark"] {
+      --background: #0E0C12;
+      --card: #18161E;
+      --surface: #25222E;
+      --border: #332F3D;
+      --text: #F4EFF4;
+      --text-secondary: #CBC4D9;
+      --text-muted: #8F899D;
+      --primary: #CFBDFF;
+      --on-primary: #381E72;
+      --primary-container: #4F378B;
+      --on-primary-container: #E9DDFF;
+      --success: #81C784;
+      --error: #FFB4AB;
+      --warning: #FFB74D;
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Base reset & styling */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color var(--transition-speed) ease, 
+                  border-color var(--transition-speed) ease, 
+                  color var(--transition-speed) ease, 
+                  box-shadow var(--transition-speed) ease;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    /* Header styling */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .logo-area h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--primary), var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+    }
+
+    .logo-area p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* Theme Switcher Button */
+    .theme-toggle-btn {
+      background: var(--primary);
+      color: var(--on-primary);
+      border: none;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-toggle-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .theme-toggle-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Layout Sections */
+    section {
+      margin-bottom: 56px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: var(--border);
+    }
+
+    /* Guidelines Cards grid */
+    .guidelines-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .guide-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .guide-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .guide-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .guide-card .token-pill {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    /* Color Grid */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .color-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .color-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .swatch {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .color-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .color-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .color-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .color-hex {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 600;
+      background-color: var(--primary-container);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .color-desc {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+
+    .color-token-var {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Component Showcase Grid */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Note Card Preview styling */
+    .note-preview-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .note-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .note-tag {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .note-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .note-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .note-body {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .note-divider {
+      height: 1px;
+      background-color: var(--border);
+    }
+
+    .note-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .note-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--success);
+    }
+
+    .note-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--success);
+    }
+
+    .note-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    .note-actions a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .action-edit {
+      color: var(--primary);
+    }
+
+    .action-delete {
+      color: var(--error);
+    }
+
+    /* Showcase Controls */
+    .controls-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .control-section h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .demo-btn {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+    }
+
+    .demo-btn.primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .demo-btn.primary:hover {
+      opacity: 0.9;
+    }
+
+    .demo-btn.subtle {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .demo-btn.subtle:hover {
+      opacity: 0.95;
+    }
+
+    .demo-btn.outline {
+      background-color: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .demo-btn.outline:hover {
+      background-color: var(--surface);
+    }
+
+    .banner-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .demo-banner {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .demo-banner.info {
+      background-color: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--on-primary-container);
+    }
+
+    .demo-banner.success {
+      background-color: rgba(46, 125, 50, 0.08);
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    [data-theme="dark"] .demo-banner.success {
+      background-color: rgba(129, 199, 132, 0.08);
+    }
+
+    .demo-banner.error {
+      background-color: rgba(186, 26, 26, 0.08);
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    [data-theme="dark"] .demo-banner.error {
+      background-color: rgba(255, 180, 171, 0.08);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 0 20px;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer p {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-area">
+        <h1>Slate Design Guidelines</h1>
+        <p>Color Palette & Typography Showcase</p>
+      </div>
+      <button class="theme-toggle-btn" id="themeToggler" onclick="toggleDesignTheme()">
+        <span id="themeBtnIcon">🌙</span> <span id="themeBtnText">Dark Mode</span>
+      </button>
+    </header>
+
+    <!-- Semantic Role Rules Section -->
+    <section>
+      <h2>Theme Principles</h2>
+      <div class="guidelines-grid">
+        <div class="guide-card">
+          <h3>Backgrounds</h3>
+          <p>General application surfaces and list container screens.</p>
+          <span class="token-pill">background</span>
+        </div>
+        <div class="guide-card">
+          <h3>Containers</h3>
+          <p>Note items, modals, dialog cards, and elevated widgets.</p>
+          <span class="token-pill">card</span>
+        </div>
+        <div class="guide-card">
+          <h3>Surfaces</h3>
+          <p>Dropdown selections, text fields, and overlays.</p>
+          <span class="token-pill">surface</span>
+        </div>
+        <div class="guide-card">
+          <h3>Borders</h3>
+          <p>Thin divider lines and boundaries separating components.</p>
+          <span class="token-pill">border</span>
+        </div>
+        <div class="guide-card">
+          <h3>Typography</h3>
+          <p>Clear hierarchy with high-contrast text, secondary body, and muted metadata.</p>
+          <span class="token-pill">text</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Component Showcase -->
+    <section>
+      <h2>Component Mockups</h2>
+      <div class="showcase-grid">
+        <!-- 1. Note Card Mockup -->
+        <div class="note-preview-card">
+          <div class="note-header">
+            <span class="note-tag">Ideas</span>
+            <span class="note-date">Jun 28, 2026</span>
+          </div>
+          <div class="note-title">Build Slate Theme System</div>
+          <div class="note-body">
+            Refactor global themes and layout styles to adopt an intuitive semantic naming structure. Colors should be easily readable and consistent across modes.
+          </div>
+          <div class="note-divider"></div>
+          <div class="note-footer">
+            <div class="note-status">
+              <span class="note-status-dot"></span>
+              <span>Completed</span>
+            </div>
+            <div class="note-actions">
+              <a class="action-edit">Edit</a>
+              <a class="action-delete">Delete</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Controls Showcase -->
+        <div class="controls-card">
+          <div class="control-section">
+            <h3>Buttons Hierarchy</h3>
+            <div class="button-group">
+              <button class="demo-btn primary">Primary Action</button>
+              <button class="demo-btn subtle">Subtle Container</button>
+              <button class="demo-btn outline">Secondary Border</button>
+            </div>
+          </div>
+          <div class="control-section">
+            <h3>Contextual Banners</h3>
+            <div class="banner-group">
+              <div class="demo-banner info">Info Highlight</div>
+              <div class="demo-banner success">Action Success</div>
+              <div class="demo-banner error">Critical Error</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Theme Color Catalog -->
+    <section>
+      <h2>Color Tokens Catalog</h2>
+      <div class="color-grid" id="colorCatalog">
+        <!-- Rendered with JavaScript -->
+      </div>
+    </section>
+
+    <footer>
+      <p>Slate Notes Design Specification &bull; Powered by Zustand & React Native</p>
+      <p style="font-family: var(--font-mono); font-size: 0.75rem;">/home/wizking/Code/mobile/notes/slate/design.html</p>
+    </footer>
+  </div>
+
+  <script>
+    // Color schemes exactly as specified in colors.tsx
+    const colorSchemes = {
+      light: {
+        background: { hex: "#F4F5FA", desc: "Overall screen background" },
+        card: { hex: "#FFFFFF", desc: "Cards, list items, and containers" },
+        surface: { hex: "#EBE8F4", desc: "Dropdowns, modals, sheet surfaces, text inputs" },
+        border: { hex: "#E0DBEC", desc: "Dividers, thin borders" },
+        text: { hex: "#1C1A22", desc: "Primary text (high contrast)" },
+        textSecondary: { hex: "#494554", desc: "Secondary text (medium contrast)" },
+        textMuted: { hex: "#8F899D", desc: "Muted text (low contrast, placeholders)" },
+        primary: { hex: "#7A4FD6", desc: "Primary action color (buttons, highlights)" },
+        onPrimary: { hex: "#FFFFFF", desc: "Text/icon color displayed on primary" },
+        primaryContainer: { hex: "#E9DDFF", desc: "Subtle background for active states" },
+        onPrimaryContainer: { hex: "#22005C", desc: "Text/icon color displayed on primaryContainer" },
+        success: { hex: "#2E7D32", desc: "Success indicators and completed state" },
+        error: { hex: "#BA1A1A", desc: "Error indicators and destructive actions" },
+        warning: { hex: "#B25E00", desc: "Warning states and archivable actions" }
+      },
+      dark: {
+        background: { hex: "#0E0C12", desc: "Overall screen background" },
+        card: { hex: "#18161E", desc: "Cards, list items, and containers" },
+        surface: { hex: "#25222E", desc: "Dropdowns, modals, sheet surfaces, text inputs" },
+        border: { hex: "#332F3D", desc: "Dividers, thin borders" },
+        text: { hex: "#F4EFF4", desc: "Primary text (high contrast)" },
+        textSecondary: { hex: "#CBC4D9", desc: "Secondary text (medium contrast)" },
+        textMuted: { hex: "#8F899D", desc: "Muted text (low contrast, placeholders)" },
+        primary: { hex: "#CFBDFF", desc: "Primary action color (buttons, highlights)" },
+        onPrimary: { hex: "#381E72", desc: "Text/icon color displayed on primary" },
+        primaryContainer: { hex: "#4F378B", desc: "Subtle background for active states" },
+        onPrimaryContainer: { hex: "#E9DDFF", desc: "Text/icon color displayed on primaryContainer" },
+        success: { hex: "#81C784", desc: "Success indicators and completed state" },
+        error: { hex: "#FFB4AB", desc: "Error indicators and destructive actions" },
+        warning: { hex: "#FFB74D", desc: "Warning states and archivable actions" }
+      }
+    };
+
+    // Toggle Theme
+    function toggleDesignTheme() {
+      const htmlElement = document.documentElement;
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      htmlElement.setAttribute('data-theme', nextTheme);
+      
+      // Update toggle button text & icon
+      const themeBtnIcon = document.getElementById('themeBtnIcon');
+      const themeBtnText = document.getElementById('themeBtnText');
+      
+      if (nextTheme === 'dark') {
+        themeBtnIcon.innerText = '☀️';
+        themeBtnText.innerText = 'Light Mode';
+      } else {
+        themeBtnIcon.innerText = '🌙';
+        themeBtnText.innerText = 'Dark Mode';
+      }
+      
+      // Re-render color catalog with hexes of the new theme
+      renderColorCatalog(nextTheme);
+    }
+
+    // Render Color Catalog Grid
+    function renderColorCatalog(theme) {
+      const catalogContainer = document.getElementById('colorCatalog');
+      catalogContainer.innerHTML = '';
+      
+      const schema = colorSchemes[theme];
+      
+      Object.keys(schema).forEach(key => {
+        const item = schema[key];
+        const hexVal = item.hex;
+        const description = item.desc;
+        
+        const card = document.createElement('div');
+        card.className = 'color-card';
+        
+        card.innerHTML = `
+          <div class="swatch" style="background-color: ${hexVal};"></div>
+          <div class="color-info">
+            <div class="color-title-row">
+              <span class="color-name">${capitalize(key)}</span>
+              <span class="color-hex">${hexVal}</span>
+            </div>
+            <p class="color-desc">${description}</p>
+            <span class="color-token-var">colors.${key}</span>
+          </div>
+        `;
+        
+        catalogContainer.appendChild(card);
+      });
+    }
+
+    function capitalize(str) {
+      // Split camel case for label readability
+      return str
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/^./, function(char){ return char.toUpperCase(); });
+    }
+
+    // Initial render
+    renderColorCatalog('light');
+  </script>
+</body>
+</html>

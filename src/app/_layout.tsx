@@ -1,9 +1,9 @@
 import "react-native-reanimated";
-import { Stack } from "expo-router";
 import {Drawer} from "expo-router/drawer";
 import { StyleSheet, View } from "react-native";
 import { useTheme } from "@/hooks/theme";
-import Sidebar from "@/components/home/sidebar";
+import Sidebar from "@/components/common/sidebar";
+import {Pencil,Archive,Trash,Settings} from "lucide-react-native"
 
 const RootLayout = () => {
   const { colors } = useTheme();
@@ -16,24 +16,41 @@ const RootLayout = () => {
      )}
      screenOptions={{
       headerShown:true,
-      drawerType:"front"
+      headerRight:()=>(<View style={{width:40,height:40,backgroundColor:colors.primaryContainer,borderRadius:20,marginRight:10}}/>),
+      headerTitle:() => null,
+      drawerType:"front",
+      drawerActiveTintColor:colors.primaryContainer,
+      drawerActiveBackgroundColor:colors.onPrimaryContainer,
      }}
      >
       <Drawer.Screen
       name="index"
-      options={{drawerLabel:"Primary"}}
+      options={{drawerLabel:"Write",
+        drawerIcon:({color,size})=>(
+          <Pencil color={color} size={size} />
+        )
+      }}
       />
       <Drawer.Screen
       name="archive"
-      options={{drawerLabel:"Archived"}}
+      options={{drawerLabel:"Archived",
+        drawerIcon:({color,size})=>(
+          <Archive color={color} size={size} />
+        )}}
       />
       <Drawer.Screen
       name="account"
-      options={{drawerLabel:"Settings"}}
+      options={{drawerLabel:"Settings",
+        drawerIcon:({color,size})=>(
+          <Settings color={color} size={size} />
+        )}}
       />
       <Drawer.Screen
       name="trash"
-      options={{drawerLabel:"Trash"}}
+      options={{drawerLabel:"Trash",
+        drawerIcon:({color,size})=>(
+          <Trash color={color} size={size} />
+        )}}
       />
      </Drawer>
     </View>

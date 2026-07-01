@@ -3,7 +3,7 @@ import {Drawer} from "expo-router/drawer";
 import { StyleSheet, View } from "react-native";
 import { useTheme } from "@/hooks/theme";
 import Sidebar from "@/components/common/sidebar";
-import {Pencil,Archive,Trash,Settings} from "lucide-react-native"
+import {Book,Archive,Trash,Settings, Hash} from "lucide-react-native"
 import useStorage from "@/stores/storage";
 
 const RootLayout = () => {
@@ -30,9 +30,9 @@ const RootLayout = () => {
      >
       <Drawer.Screen
       name="index"
-      options={{drawerLabel:"Write",
+      options={{drawerLabel:"Notes",
         drawerIcon:({color,size})=>(
-          <Pencil color={color} size={size} />
+          <Book color={color} size={size} />
         )
       }}
       />
@@ -56,6 +56,29 @@ const RootLayout = () => {
         drawerIcon:({color,size})=>(
           <Trash color={color} size={size} />
         )}}
+      />
+      <Drawer.Screen
+      name="category"
+      options={{drawerLabel:"Tags",
+        drawerIcon:({color,size})=>(
+          <Hash color={color} size={size} />
+        ),
+        headerShown:false
+      }}
+      />
+      <Drawer.Screen 
+      name="category/[category]"
+      options={{
+        drawerItemStyle:{display:"none"},
+        headerShown:false,
+      }}
+      />
+      <Drawer.Screen 
+      name="notes/[note]"
+      options={{
+        drawerItemStyle:{display:"none"},
+        headerShown:false,
+      }}
       />
      </Drawer>
     </View>

@@ -4,7 +4,7 @@ import { Category } from "@/types/category";
 import { NotesMetadata } from "@/types/note";
 import * as Crypto from "expo-crypto";
 
-// the notes json file in Document/slate-data/notes
+// the notes file  Document/slate-data/notes.json that stores all notes metadata
 const noteIndex = new File(dataDir, "notes.json");
 
 // Initialize the file if it doesn't exist
@@ -186,7 +186,7 @@ const deleteFile = async (fileId: string): Promise<void> => {
     const dFile = new File(notesDir, fileId);
     
     if (dFile.exists) {
-      dFile.delete();
+       dFile.delete();
       
       // Also remove from metadata
       const notes = await readNotesArray();

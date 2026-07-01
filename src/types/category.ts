@@ -1,6 +1,5 @@
 export type Category = {
-  id:number,
+  id:string,
   label:string,
-  total:number,
-  color?:string,
+  color:string,
 }

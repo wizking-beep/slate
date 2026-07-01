@@ -2,21 +2,19 @@ import React from "react";
 import { View,Text, StyleSheet, Image,useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import  { DrawerContentScrollView,DrawerItem,DrawerItemList,DrawerContentComponentProps } from "expo-router/drawer";
+import {File,Paths} from "expo-file-system";
 import useThemeStore from "@/stores/themestore";
 import { useTheme } from "@/hooks/theme";
 import { Hash } from "lucide-react-native";
 import Icon from "@/assets/images/icon.png"
+import { Category } from "@/types/category";
 
-type Categories = {
-  id:number,
-  label:string,
-  total:number,
-}
 
 const Sidebar = ({navigation, state, descriptors}: DrawerContentComponentProps) => {
 
   const {toggleTheme} = useThemeStore();
   const insets = useSafeAreaInsets();
+
 
  const categoryColors = [
   "#ffadad",
@@ -30,7 +28,7 @@ const Sidebar = ({navigation, state, descriptors}: DrawerContentComponentProps) 
   "#f1f2f6"
 ];
 
-  const categories:Categories[] = [
+  const categories:Category[] = [
     {
       id:1,
       label:"Personal",

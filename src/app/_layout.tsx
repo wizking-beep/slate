@@ -4,9 +4,14 @@ import { StyleSheet, View } from "react-native";
 import { useTheme } from "@/hooks/theme";
 import Sidebar from "@/components/common/sidebar";
 import {Pencil,Archive,Trash,Settings} from "lucide-react-native"
+import useStorage from "@/stores/storage";
 
 const RootLayout = () => {
   const { colors } = useTheme();
+  const {initialiseStorage} = useStorage();
+
+  //initilising the two directories
+  initialiseStorage();
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}> 
